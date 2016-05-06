@@ -37,7 +37,6 @@ class UsrLEDs(object):
 
 usrLEDs = UsrLEDs()
 
-
 def waitSwitchStart(switchPin):
 	"""
 		A Switch is connected to the provided pin.
@@ -47,16 +46,16 @@ def waitSwitchStart(switchPin):
 	"""
 	print("")
 	print("[I] Waiting starting switch on %s"%switchPin)
-	GPIO.setup(switchPin,GPIO.INPUT)
+	GPIO.setup(switchPin,GPIO.IN)
 
 	t = time()
 	while True:
 		if GPIO.input(switchPin):
 			print("[I] Countdown started")
-			usrLedCountdown()
+			usrLEDs.countdown()
 			break
 		sleep(0.1)
-		writeUsrLed(1<<(int(time()-t)%4))
+		usrLEDs.write(1<<(int(time()-t)%4))
 
 	print("[I] Go Go Go !")
 
