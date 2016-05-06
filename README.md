@@ -1,2 +1,2 @@
 # ZemkaBot
-All code for my Zemka Bot
+All code for the BeagleBone black powering my Zemka Bot
