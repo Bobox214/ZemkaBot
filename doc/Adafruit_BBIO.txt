@@ -1,0 +1,158 @@
+###########################################################
+### GPIO
+
+Help on module Adafruit_BBIO.GPIO in Adafruit_BBIO:
+
+NAME
+    Adafruit_BBIO.GPIO - GPIO functionality of a BeagleBone using Python
+
+FILE
+    /root/.python-eggs/Adafruit_BBIO-0.0.30-py2.7-linux-armv7l.egg-tmp/Adafruit_BBIO/GPIO.so
+
+FUNCTIONS
+    add_event_callback(...)
+        Add a callback for an event already defined using add_event_detect()
+        gpio         - gpio channel
+        callback     - a callback function
+        [bouncetime] - Switch bounce timeout in ms
+
+    add_event_detect(...)
+        Enable edge detection events for a particular GPIO channel.
+        channel      - either board pin number or BCM number depending on which mode is set.
+        edge         - RISING, FALLING or BOTH
+        [callback]   - A callback function for the event (optional)
+        [bouncetime] - Switch bounce timeout in ms for callback
+
+    cleanup(...)
+        Clean up by resetting all GPIO channels that have been used by this program to INPUT with no pullup/pulldown and no event detection
+
+    event_detected(...)
+        Returns True if an edge has occured on a given GPIO.  You need to enable edge detection using add_event_detect() first.
+        gpio - gpio channel
+
+    gpio_function(...)
+        Return the current GPIO function (IN, OUT, ALT0)
+        gpio - gpio channel
+
+    input(...)
+        Input from a GPIO channel.  Returns HIGH=1=True or LOW=0=False
+        gpio - gpio channel
+
+    output(...)
+        Output to a GPIO channel
+        gpio  - gpio channel
+        value - 0/1 or False/True or LOW/HIGH
+
+    remove_event_detect(...)
+        Remove edge detection for a particular GPIO channel
+        gpio - gpio channel
+
+    setup(...)
+        Set up the GPIO channel, direction and (optional) pull/up down control
+        channel        - Either: RPi board pin number (not BCM GPIO 00..nn number).  Pins start from 1
+                         or    : BCM GPIO number
+        direction      - INPUT or OUTPUT
+        [pull_up_down] - PUD_OFF (default), PUD_UP or PUD_DOWN
+        [initial]      - Initial value for an output channel
+
+    setwarnings(...)
+        Enable or disable warning messages
+
+    wait_for_edge(...)
+        Wait for an edge.
+        gpio - gpio channel
+        edge - RISING, FALLING or BOTH
+
+DATA
+    ALT0 = 4
+    BOTH = 3
+    FALLING = 2
+    HIGH = 1
+    IN = 0
+    LOW = 0
+    OUT = 1
+    PUD_DOWN = 1
+    PUD_OFF = 0
+    PUD_UP = 2
+    RISING = 1
+    VERSION = '0.0.20'
+
+###########################################################
+### PWM
+
+Help on module Adafruit_BBIO.PWM in Adafruit_BBIO:
+
+NAME
+    Adafruit_BBIO.PWM - PWM functionality of a BeagleBone using Python
+
+FILE
+    /root/.python-eggs/Adafruit_BBIO-0.0.30-py2.7-linux-armv7l.egg-tmp/Adafruit_BBIO/PWM.so
+
+FUNCTIONS
+    cleanup(...)
+        Clean up by resetting all GPIO channels that have been used by this program to INPUT with no pullup/pulldown and no event detection
+
+    set_duty_cycle(...)
+        Change the duty cycle
+        dutycycle - between 0.0 and 100.0
+
+    set_frequency(...)
+        Change the frequency
+        frequency - frequency in Hz (freq > 0.0)
+
+    start(...)
+        Set up and start the PWM channel.  channel can be in the form of 'P8_10', or 'EHRPWM2A'
+
+    stop(...)
+        Stop the PWM channel.  channel can be in the form of 'P8_10', or 'EHRPWM2A'
+
+DATA
+    ALT0 = 4
+    BOTH = 3
+    FALLING = 2
+    HIGH = 1
+    IN = 0
+    LOW = 0
+    OUT = 1
+    PUD_DOWN = 1
+    PUD_OFF = 0
+    PUD_UP = 2
+    RISING = 1
+    VERSION = '0.0.20'
+
+
+###########################################################
+### ADC
+
+Help on module Adafruit_BBIO.ADC in Adafruit_BBIO:
+
+NAME
+    Adafruit_BBIO.ADC - ADC functionality of a BeagleBone using Python
+
+FILE
+    /root/.python-eggs/Adafruit_BBIO-0.0.30-py2.7-linux-armv7l.egg-tmp/Adafruit_BBIO/ADC.so
+
+FUNCTIONS
+    read(...)
+        Read the normalized 0-1.0 analog value for the channel
+
+    read_raw(...)
+        Read the raw analog value for the channel
+
+    setup(...)
+        Set up and start the ADC channel.
+
+DATA
+    ALT0 = 4
+    BOTH = 3
+    FALLING = 2
+    HIGH = 1
+    IN = 0
+    LOW = 0
+    OUT = 1
+    PUD_DOWN = 1
+    PUD_OFF = 0
+    PUD_UP = 2
+    RISING = 1
+    VERSION = '0.0.20'
+
