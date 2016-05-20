@@ -15,7 +15,7 @@ try:
 	wheelEncoder.setup()
 	while True:
 		sleep(0.2)
-		print "[I] Ticks : ",wheelEncoder.getTicks()
+		print "[I] Ticks : %6d . Speed  %4.3g ticks/s"%(wheelEncoder.getTicks(),wheelEncoder.getTpsSpeed())
 except KeyboardInterrupt:
 	pass
 finally:
