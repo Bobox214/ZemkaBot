@@ -2,38 +2,41 @@ from boneHelpers import *
 from kbHit       import KBHit
 import sys
 
-assert len(sys.argv) == 2,"Usage: testPwm pinName"
+assert len(sys.argv) >= 2,"Usage: testPwm pinName1 [pinName2 .. pinName3]"
 
-pinName = sys.argv[1]
+pinNames = sys.argv[1:]
 
-dutyCycle = 0
-freq      = 1000
-print "[I] Testing PWM",pinName
+dutyCycle = 60
+freq      = 5
+print "[I] Testing PWM",pinNames
 print "[I] use 'a' 'z' keys to change dutyCycle"
 print "[I] use 'q' 's' keys to change frequency"
 def printPwmConf():
-	print "[I] Freq : %6d Hz Duty : %3d%%"%(dutyCycle,freq)
+	print "[I] Freq : %6d Hz Duty : %3d"%(freq,dutyCycle)
 
 kb = KBHit()
 try:
 	usrLEDs.write(15)
-	PWM.start(pinName)
-	PWM.set_duty_cycle(pinName,dutyCycle)
-	PWM.set_frequency(pinName,freq)
+	for pinName in pinNames:
+		PWM.start(pinName)
+		PWM.set_duty_cycle(pinName,dutyCycle)
+		PWM.set_frequency(pinName,freq)
 	printPwmConf()
 	while True:
 		if kb.kbhit():
 			c = kb.getch()
 			if c in ('a','z','q','s'):
-				if c == 'a' and dutyCycle>0  : dutyCycle -= 1
-				if c == 'z' and dutyCycle<100: dutyCycle += 1
-				if c == 'q' and freq>0:   freq -= 100
-				if c == 's' and freq<1e6: freq += 100
-				PWM.set_duty_cycle(pinName,dutyCyle)
-				PWM.set_frequency(pinName,freq)
+				if c == 'a' and dutyCycle>0  : dutyCycle -= 5
+				if c == 'z' and dutyCycle<100: dutyCycle += 5
+				if c == 'q' and freq>0:   freq -= 1
+				if c == 's' and freq<1e6: freq += 1
+				for pinName in pinNames:
+					PWM.set_frequency(pinName,freq)
+					PWM.set_duty_cycle(pinName,dutyCycle)
 				printPwmConf()
 			if ord(c) == 27:
 				break
+		sleep(0.1)
 except KeyboardInterrupt:
 	pass
 finally:
