@@ -40,6 +40,7 @@ try:
 			if c=='s':
 				for wheel in wheels:
 					wheel.stop()
+				speed = 0
 				print '[I] Stopped'
 except KeyboardInterrupt:
 	pass

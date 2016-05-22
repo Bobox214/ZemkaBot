@@ -28,6 +28,7 @@ class WheelMotor(object):
 	def stop(self):
 		GPIO.output(self.fwdPinName,0)
 		GPIO.output(self.bwdPinName,0)
+		PWM.set_duty_cycle(self.ctrlPinName,0)
 	
 	def setCtrl(self,ctrl):
 		ctrl = int(ctrl)

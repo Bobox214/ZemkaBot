@@ -29,6 +29,7 @@ try:
 				print '[I] Speed',speed
 			if c=='s':
 				wheel.stop()
+				speed = 0
 				print '[I] Stopped'
 except KeyboardInterrupt:
 	pass

@@ -16,18 +16,27 @@ class Wheel(object):
 		self._Kd = 0    # Derivative gain
 		
 		# Controller variables
+		self._timer        = None
 		self._motorCtrl    = 0
 		self._lastRpmError = 0
-		self._lastTime     = time()
+		self._lastTime     = 0
 		self._totRpmError  = 0
 	
+	def _stopMotor(self):
+		self._motorCtrl    = 0
+		self._lastRpmError = 0
+		self._lastTime     = 0
+		self._totRpmError  = 0
+		self._motor.stop()
+	
 	def setup(self):
-		self._lastTime  = time()
 		self._motor.setup()
 		self._encoder.setup()
 
 	def cleanup(self):
-		self._rpmSpeed = 0
+		if self._timer is not None:
+			self._timer.cancel()
+		self._stopMotor()
 		self._motor.cleanup()
 		self._encoder.cleanup()
 
@@ -41,22 +50,28 @@ class Wheel(object):
 
 	def _controller(self):
 		if self._rpmSpeed == 0:
-			self._motorCtrl = 0
-			self._motor.stop()
+			self._stopMotor()
 			return
 		# Timer to recal ourself
-		timer = Timer(0.3,self._controller)
-		timer.start()
+		if self._timer is not None:
+			self._timer.cancel()
+		self._timer = Timer(0.3,self._controller)
+		self._timer.start()
 
 		# Time Delta dt
-		t = time()
-		dt = t-self._lastTime
-		self._lastTime = t
+		if self._lastTime == 0:
+			print "[I] Restart"
+			self._lastTime = time()
+			dt = 0
+		else:
+			t = time()
+			dt = t-self._lastTime
+			self._lastTime = t
 		
 		# Error
 		rpmSpeed = (self._encoder.getTpsSpeed()/self._tpr)*60
 		pRpmError = self._rpmSpeed-rpmSpeed
-		dRpmError = (pRpmError-self._lastRpmError)/dt
+		dRpmError = (pRpmError-self._lastRpmError)/dt if dt!=0 else 0
 		iRpmError = self._totRpmError+pRpmError*dt
 
 		self._lastRpmError = pRpmError
@@ -84,4 +99,3 @@ class Wheel(object):
 			self._controller()
 		else:
 			self._rpmSpeed =  abs(rpmSpeed)
-
