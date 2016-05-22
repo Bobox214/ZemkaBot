@@ -2,18 +2,20 @@ from boneHelpers  import *
 from wheelEncoder import WheelEncoder
 
 class WheelMotor(object):
+	maxDuty = 100
+	minDuty = 0
 
-	def __init__(self,fwdPinName,bwdPinName,speedPinName):
+	def __init__(self,fwdPinName,bwdPinName,ctrlPinName):
 		self.fwdPinName = fwdPinName
 		self.bwdPinName = bwdPinName
-		self.speedPinName = speedPinName
+		self.ctrlPinName = ctrlPinName
 
 	def setup(self):
 		GPIO.setup(self.fwdPinName,GPIO.OUT,initial=0)
 		GPIO.setup(self.bwdPinName,GPIO.OUT,initial=0)
-		PWM.start(self.speedPinName)
-		PWM.set_frequency(self.speedPinName,5)
-		PWM.set_duty_cycle(self.speedPinName,0)
+		PWM.start(self.ctrlPinName)
+		PWM.set_frequency(self.ctrlPinName,5)
+		PWM.set_duty_cycle(self.ctrlPinName,0)
 
 	def forward(self):
 		GPIO.output(self.fwdPinName,1)
@@ -27,11 +29,11 @@ class WheelMotor(object):
 		GPIO.output(self.fwdPinName,0)
 		GPIO.output(self.bwdPinName,0)
 	
-	def setSpeed(self,speed):
-		assert speed>=0 and speed<=100, "Min 0 , Max 100"
-		PWM.set_duty_cycle(self.speedPinName,speed)
+	def setCtrl(self,ctrl):
+		ctrl = int(ctrl)
+		if ctrl<self.minDuty: ctrl = self.minDuty
+		if ctrl>self.maxDuty: ctrl = self.maxDuty
+		PWM.set_duty_cycle(self.ctrlPinName,ctrl)
 
 	def cleanup(self):
-		PWM.stop(self.speedPinName)
-
-		
+		PWM.stop(self.ctrlPinName)

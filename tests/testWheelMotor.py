@@ -11,26 +11,26 @@ assert len(sys.argv) == 4,"Usage: testWheelMotor fwdPinName bwdPinName speedPinN
 
 fwdPinName = sys.argv[1]
 bwdPinName = sys.argv[2]
-speedPinName = sys.argv[3]
-speed = 0
+ctrlPinName = sys.argv[3]
+ctrl = 0
 kb = KBHit()
-print "[I] Testing WheelMotor on ",fwdPinName,bwdPinName,speedPinName
-print "[I] Use 'a' 'z' keys to change speed"
-print "[I] Use 'q' 's' 'd' keys to change direction. This reduces speed to 0"
+print "[I] Testing WheelMotor on ",fwdPinName,bwdPinName,ctrlPinName
+print "[I] Use 'a' 'z' keys to change ctrl"
+print "[I] Use 'q' 's' 'd' keys to change direction. This reduces ctrl to 0"
 try:
-	wheelMotor = WheelMotor(fwdPinName,bwdPinName,speedPinName)
+	wheelMotor = WheelMotor(fwdPinName,bwdPinName,ctrlPinName)
 	wheelMotor.setup()
 	while True:
 		if kb.kbhit():
 			c = kb.getch()
 			if c in ('a','z'):
-				if c=='a' and speed>5:   speed -=5
-				if c=='z' and speed<=95: speed +=5
-				wheelMotor.setSpeed(speed)
-				print '[I] Speed',speed
+				if c=='a' and ctrl>5:   ctrl -=5
+				if c=='z' and ctrl<=95: ctrl +=5
+				wheelMotor.setCtrl(ctrl)
+				print '[I] Ctrl',ctrl
 			if c in ('q','s','d'):
-				speed = 0
-				wheelMotor.setSpeed(speed)
+				ctrl = 0
+				wheelMotor.setCtrl(ctrl)
 				if c=='q': wheelMotor.backward(); print '[I] Going backward'
 				if c=='s': wheelMotor.stop();     print '[I] Stopped'
 				if c=='d': wheelMotor.forward();  print '[I] Going forward'

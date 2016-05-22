@@ -29,4 +29,7 @@ class WheelEncoder(object):
 	def _tickUpdate(self,channel):
 		self._ticks += 1
 
+	def cleanup(self):
+		pass
+
 
