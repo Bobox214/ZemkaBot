@@ -58,5 +58,3 @@ def waitSwitchStart(switchPin):
 		usrLEDs.write(1<<(int(time()-t)%4))
 
 	print("[I] Go Go Go !")
-
-	

@@ -1,5 +1,6 @@
-from boneHelpers import *
-from kbHit       import KBHit
+import context
+from tools.beagleBoneBlack import *
+from tools.kbHit           import KBHit
 import sys
 
 assert len(sys.argv) >= 2,"Usage: testPwm pinName1 [pinName2 .. pinName3]"

@@ -1,5 +1,4 @@
-from boneHelpers  import *
-from wheelEncoder import WheelEncoder
+from tools.beagleBoneBlack  import *
 
 class WheelMotor(object):
 	maxDuty = 100

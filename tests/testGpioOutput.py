@@ -1,8 +1,5 @@
-"""
-	Simply do a 'blink' test on the provided pin as argument.
-	To be connected to a led to test matching of name and pin
-"""
-from boneHelpers import *
+import context
+from tools.beagleBoneBlack import *
 import sys
 
 assert len(sys.argv) == 2,"Usage: testGpioOutput pinName"

@@ -1,10 +1,7 @@
-"""
-	Simply do a 'print value' test on the provided pin as argument.
-	To be connected to a switch to test matching of name and pin
-"""
+import context
 from boneHelpers import *
 from kbHit       import KBHit
-from wheelMotor  import WheelMotor
+from zemkaBot.wheelMotor import WheelMotor
 import sys
 
 assert len(sys.argv) == 4,"Usage: testWheelMotor fwdPinName bwdPinName speedPinName"

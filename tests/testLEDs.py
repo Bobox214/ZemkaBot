@@ -1,4 +1,5 @@
-from boneHelpers import *
+import context
+from tools.beagleBoneBlack import *
 
 try:
 	for i in range(5):

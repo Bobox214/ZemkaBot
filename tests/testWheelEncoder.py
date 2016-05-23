@@ -1,9 +1,6 @@
-"""
-	Simply do a 'print value' test on the provided pin as argument.
-	To be connected to a switch to test matching of name and pin
-"""
+import context
 from boneHelpers import *
-from wheelEncoder import WheelEncoder
+from zemkaBot.wheelEncoder import WheelEncoder
 import sys
 
 assert len(sys.argv) == 2,"Usage: testWheelEncoder pinName"

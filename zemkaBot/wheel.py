@@ -1,5 +1,5 @@
 from threading import Timer
-from boneHelpers import *
+from tools.beagleBoneBlack import *
 import wheelMotor
 import wheelEncoder
 

@@ -1,0 +1,3 @@
+#python tests/testWheel.py P8_7 P8_9 P9_16 P9_15
+#python tests/testWheel.py P8_8 P8_10 P9_14 P9_13
+python tests/testTwoWheels.py P8_7 P8_9 P9_16 P9_15 P8_8 P8_10 P9_14 P9_13

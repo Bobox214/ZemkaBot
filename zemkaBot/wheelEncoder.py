@@ -1,4 +1,4 @@
-from boneHelpers import *
+from tools.beagleBoneBlack import *
 
 class WheelEncoder(object):
 

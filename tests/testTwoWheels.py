@@ -1,6 +1,7 @@
-from boneHelpers import *
-from kbHit       import KBHit
-from wheel       import Wheel
+import context
+from tools.beagleBoneBlack import *
+from tools.kbHit           import KBHit
+from zemkaBot.wheel        import Wheel
 import sys
 
 assert len(sys.argv) == 9,"Usage: testWheel fwdPinName1 bwdPinName1 speedPinName1 encoderPinName1 fwdPinName2 bwdPinName2 speedPinName2 encoderPinName2"
