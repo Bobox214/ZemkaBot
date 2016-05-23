@@ -60,7 +60,7 @@ class Wheel(object):
 
 		# Time Delta dt
 		if self._lastTime == 0:
-			print "[I] Restart"
+			#print "[I] Restart"
 			self._lastTime = time()
 			dt = 0
 		else:
@@ -80,7 +80,7 @@ class Wheel(object):
 		# Motor Ctrl
 		self._motorCtrl = self._motorCtrl+self._Kp*pRpmError+self._Kd*dRpmError+self._Ki*iRpmError
 		self._motor.setCtrl(self._motorCtrl)
-		print '[I] SPD %4d RPM %4d  pE %4d pI %4d pD %4d  Motor %d'%(self._rpmSpeed,rpmSpeed,pRpmError,iRpmError,dRpmError,self._motorCtrl)
+		#print '[I] SPD %4d RPM %4d  pE %4d pI %4d pD %4d  Motor %d'%(self._rpmSpeed,rpmSpeed,pRpmError,iRpmError,dRpmError,self._motorCtrl)
 	
 	def stop(self):
 		self._rpmSpeed = 0
