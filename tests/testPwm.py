@@ -20,8 +20,8 @@ try:
 	usrLEDs.write(15)
 	for pinName in pinNames:
 		PWM.start(pinName)
-		PWM.set_duty_cycle(pinName,dutyCycle)
 		PWM.set_frequency(pinName,freq)
+		PWM.set_duty_cycle(pinName,dutyCycle)
 	printPwmConf()
 	while True:
 		if kb.kbhit():

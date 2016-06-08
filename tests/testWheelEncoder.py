@@ -1,5 +1,5 @@
 import context
-from boneHelpers import *
+from tools.beagleBoneBlack import *
 from zemkaBot.wheelEncoder import WheelEncoder
 import sys
 

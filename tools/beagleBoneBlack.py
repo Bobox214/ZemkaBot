@@ -1,5 +1,6 @@
-from Adafruit_BBIO import GPIO,PWM,ADC
+from Adafruit_BBIO import GPIO
 from time import sleep,time
+import os
 
 class UsrLEDs(object):
 	def __init__(self):
@@ -58,3 +59,49 @@ def waitSwitchStart(switchPin):
 		usrLEDs.write(1<<(int(time()-t)%4))
 
 	print("[I] Go Go Go !")
+
+# Fake behaviour of PWM module while Adafruit_BBIO is updated for 4.4
+class PWM:
+	pinStarted = set()
+	pinNameMap = {
+		'P9_14' : ( 0 , 0 )
+	,	'P9_16' : ( 0 , 1 )
+	}
+	@staticmethod
+	def start(pinName):
+		chipNb,subNb = PWM.pinNameMap[pinName]
+		if not os.path.exists('/sys/class/pwm/pwmchip%s/pwm%s'%(chipNb,subNb)):
+			if os.system("echo %s > /sys/class/pwm/pwmchip%s/export"%(subNb,chipNb)) != 0:
+				raise IOError("Can't start pinName %s chip %s sub %s"%(pinName,subNb,chipNb))
+		with open('/sys/class/pwm/pwmchip%s/pwm%s/enable'%(chipNb,subNb),'w') as f:
+			f.write(str(1))
+		PWM.pinStarted.add(pinName)
+
+	@staticmethod
+	def stop(pinName):
+		chipNb,subNb = PWM.pinNameMap[pinName]
+		with open('/sys/class/pwm/pwmchip%s/pwm%s/enable'%(chipNb,subNb),'w') as f:
+			f.write(str(0))
+		os.system("echo %s > /sys/class/pwm/pwmchip%s/unexport"%(subNb,chipNb))
+		PWM.pinStarted.discard(pinName)
+
+	@staticmethod
+	def set_duty_cycle(pinName,dutyCycle):
+		assert isinstance(dutyCycle,int) and dutyCycle>=0 and dutyCycle<=100
+		chipNb,subNb = PWM.pinNameMap[pinName]
+		with open('/sys/class/pwm/pwmchip%s/pwm%s/period'%(chipNb,subNb),'r') as f:
+			nsPeriod = int(f.read())
+		nsDutyCycle = int(nsPeriod*dutyCycle/100)
+		with open('/sys/class/pwm/pwmchip%s/pwm%s/duty_cycle'%(chipNb,subNb),'w') as f:
+			f.write(str(nsDutyCycle))
+
+	@staticmethod
+	def set_frequency(pinName,frequency):
+		nsPeriod = int(1.0e9/frequency)
+		chipNb,subNb = PWM.pinNameMap[pinName]
+		with open('/sys/class/pwm/pwmchip%s/pwm%s/period'%(chipNb,subNb),'w') as f:
+			f.write(str(nsPeriod))
+	@staticmethod
+	def cleanup():
+		for pinName in list(PWM.pinStarted):
+			PWM.stop(pinName)

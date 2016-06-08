@@ -1,6 +1,6 @@
 import context
-from boneHelpers import *
-from kbHit       import KBHit
+from tools.beagleBoneBlack import *
+from tools.kbHit           import KBHit
 from zemkaBot.wheelMotor import WheelMotor
 import sys
 
